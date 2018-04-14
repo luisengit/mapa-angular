@@ -53,6 +53,21 @@ export class MapaComponent implements OnInit {
       data: { titulo: marcador.titulo, descripcion: marcador.desc }
     });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+     // Si está vacio
+      if (!result) {
+        return;
+      }
+
+      marcador.titulo = result.titulo;
+      marcador.desc = result.desc;
+
+      this.guardarStorage();
+      this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 3000 });
+    });
+
   }
 
   guardarStorage() {
